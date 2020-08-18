@@ -1,0 +1,11 @@
+mat-form-field {
+  width: 100%;
+}
+
+mat-icon:hover {
+    cursor: pointer;
+}
+
+.row {
+  margin-top: 7rem;
+}

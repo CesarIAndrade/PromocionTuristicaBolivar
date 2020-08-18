@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarTogglerDemo03"
+    aria-controls="navbarTogglerDemo03"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <div class="social-part">
+      <img
+        src="../../../assets/images/logo.png"
+        alt="img"
+        width="130px"
+        height="40px"
+      />
+    </div>
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item mt-1">
+        <a
+          class="nav-link"
+          routerLink="/articles-list"
+          routerLinkActive="active"
+          >Artículos</a
+        >
+      </li>
+      <li class="nav-item mt-1">
+        <a
+          class="nav-link"
+          routerLink="/activities-list"
+          routerLinkActive="active"
+          >Actividades</a
+        >
+      </li>
+      <li class="nav-item mt-1">
+        <a class="nav-link" routerLink="#" routerLinkActive="active"
+          >Publicaciones</a
+        >
+      </li>
+      <li class="nav-item mt-1">
+        <a class="nav-link" routerLink="/user-form" routerLinkActive="active"
+          >Usuarios</a
+        >
+      </li>
+      <li class="nav-item mt-1">
+        <a
+          class="nav-link log"
+          style="background-color: #08ad46; color: #fff;"
+          *ngIf="logged"
+          (click)="goToLogin()"
+          >Login</a
+        >
+      </li>
+      <li class="nav-item mt-1">
+        <a
+          class="nav-link log"
+          *ngIf="!logged"
+          style="background-color: #ad6627; color: #fff;"
+          (click)="logout()"
+          >Log Out</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>

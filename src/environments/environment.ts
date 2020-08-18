@@ -6,6 +6,9 @@ export const environment = {
   production: false
 };
 
+export const apiUrl = "http://25.91.66.219/ApiTurismo/public/api/";
+export const imagesUrl = "http://25.91.66.219/ApiTurismo/public/DiscoImagenes/";
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

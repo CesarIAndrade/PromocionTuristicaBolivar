@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="bg-dark text-white p-3 mb-2 d-flex align-items-center addActivity" (click)="addActivity()">
+      <mat-icon class="mr-2">add</mat-icon>
+      Agregar Actividad
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-6" *ngFor="let activity of activities">
+    <mat-card class="mb-3">
+      <mat-card-header class="mb-3">
+        <mat-card-title>{{ activity.Actividad }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col-lg-7">
+            <img
+              mat-card-image
+              src="../../../../../assets/images/wallpaper.png"
+              alt=""
+            />
+            <p class="text-justify text-muted">
+              {{ activity.Descripcion | slice: 0:42 }}...
+            </p>
+          </div>
+          <div class="col-lg-5">
+            <label> <b>Lugar: </b> {{ activity.Comunidad }} </label>
+            <br />
+            <label><b>Fecha:</b> {{ activity.DiaInicial }} </label>
+            <br />
+            <label> <b>Hora:</b> {{ activity.HoraInicio }} </label>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

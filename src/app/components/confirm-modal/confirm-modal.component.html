@@ -1,0 +1,26 @@
+<mat-dialog-content>
+  <h2 style="text-align: center;">
+    ¿Está Seguro?
+  </h2>
+  <div class="flex-container">
+    <img
+      src="../../assets/advertencia.png"
+      width="100px"
+      height="100px"
+      class="justify-content: center;"
+    />
+  </div>
+  <div class="flex-container mt-3">
+    <button
+      mat-button
+      [mat-dialog-close]="true"
+      type="button"
+      class="bg-success text-white mr-3"
+    >
+      Si
+    </button>
+    <button mat-button mat-dialog-close type="button">
+      Cancelar
+    </button>
+  </div>
+</mat-dialog-content>
