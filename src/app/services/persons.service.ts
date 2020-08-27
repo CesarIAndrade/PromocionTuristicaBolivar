@@ -3,17 +3,19 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { apiUrl } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class ActivitiesService {
+export class PersonsService {
+
   constructor(private http: HttpClient) {}
 
   refresh$ = new EventEmitter();
+  authors: any[] = [];
 
-  getActivities() {
+  getPersons() {
     return new Promise((resolve, reject) => {
       this.http
-        .get(apiUrl + 'listarActividades', {
+        .get(apiUrl + 'listarPersonasPublica', {
           headers: new HttpHeaders()
             .set('Content-Type', 'application/x-www-form-urlencoded')
             .set('Authorization', 'Bearer ' + localStorage.getItem('token')),
@@ -29,49 +31,44 @@ export class ActivitiesService {
     });
   }
 
-  createActivity(
-    activity: string,
-    comunity: string,
-    description: string,
-    startDay: string,
-    endDay: string,
-    startTime: string,
-    endTime: string,
-    image: File
+  getPerson(id: string) {
+    const body = new HttpParams().set('IdUsuario', id);
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(apiUrl + '', body.toString(), {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/x-www-form-urlencoded')
+            .set('Authorization', 'Bearer ' + localStorage.getItem('token')),
+        })
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+
+  createPerson(
+    document: string,
+    firstName: string,
+    secondName: string,
+    firstLastname: string,
+    secondLastname: string,
+    email: string
   ) {
-    const fd = new FormData();
-    fd.append('Actividad', activity);
-    fd.append('Comunidad', comunity);
-    fd.append('Descripcion', description);
-    fd.append('DiaInicio', startDay);
-    fd.append('DiaFin', endDay);
-    fd.append('HoraInicio', startTime);
-    fd.append('HoraFin', endTime);
-    fd.append('Imagen', image);
+    const body = new HttpParams()
+      .set('CedulaIdentidad', document)
+      .set('PrimerNombre', firstName)
+      .set('SegundoNombre', secondName)
+      .set('PrimerApellido', firstLastname)
+      .set('SegundoApellido', secondLastname)
+      .set('Correo', email);
     return new Promise((resolve, reject) => {
       this.http
-        .post(apiUrl + 'crearActividad', fd, {
-          headers: new HttpHeaders().set(
-            'Authorization',
-            'Bearer ' + localStorage.getItem('token')
-          ),
-        })
-        .subscribe(
-          (res) => {
-            resolve(res);
-          },
-          (err) => {
-            reject(err);
-          }
-        );
-    });
-  }
-
-  deleteActivity(activityId: string) {
-    const body = new HttpParams().set('IdRelacionesActividad', activityId);
-    return new Promise((resolve, reject) => {
-      this.http
-        .post(apiUrl + 'eliminarActividad', body.toString(), {
+        .post(apiUrl + 'crearPersona', body.toString(), {
           headers: new HttpHeaders()
             .set('Content-Type', 'application/x-www-form-urlencoded')
             .set('Authorization', 'Bearer ' + localStorage.getItem('token')),
@@ -87,50 +84,46 @@ export class ActivitiesService {
     });
   }
 
-  getActivity(activityId: string) {
-    const body = new HttpParams().set('IdRelacionesActividad', activityId);
-    return new Promise((resolve, reject) => {
-      this.http
-        .post(apiUrl + 'buscarActividad', body.toString(), {
-          headers: new HttpHeaders()
-            .set('Content-Type', 'application/x-www-form-urlencoded')
-            .set('Authorization', 'Bearer ' + localStorage.getItem('token')),
-        })
-        .subscribe(
-          (res) => {
-            resolve(res);
-          },
-          (err) => {
-            reject(err);
-          }
-        );
-    });
-  }
-
-  editActivity(
-    activityId: string,
-    activity: string,
-    comunity: string,
-    description: string,
-    startDay: string,
-    endDay: string,
-    startTime: string,
-    endTime: string,
-    image: File
+  updatePerson(
+    personId: string,
+    identityNumber: string,
+    firstName: string,
+    secondName: string,
+    firstLastname: string,
+    SecondLastname: string,
+    email: string
   ) {
-    const fd = new FormData();
-    fd.append('IdRelacionesActividad', activityId);
-    fd.append('Actividad', activity);
-    fd.append('Comunidad', comunity);
-    fd.append('Descripcion', description);
-    fd.append('DiaInicio', startDay);
-    fd.append('DiaFin', endDay);
-    fd.append('HoraInicio', startTime);
-    fd.append('HoraFin', endTime);
-    fd.append('Imagen', image);
+    const body = new HttpParams()
+      .set('IdPersona', personId)
+      .set('CedulaIdentidad', identityNumber)
+      .set('PrimerNombre', firstName)
+      .set('SegundoNombre', secondName)
+      .set('PrimerApellido', firstLastname)
+      .set('SegundoApellido', SecondLastname)
+      .set('Correo', email);
     return new Promise((resolve, reject) => {
       this.http
-        .post(apiUrl + 'actualizarActividad', fd, {
+        .post(apiUrl + 'actualizarPersona', body.toString(), {
+          headers: new HttpHeaders()
+            .set('Content-Type', 'application/x-www-form-urlencoded')
+            .set('Authorization', 'Bearer ' + localStorage.getItem('token')),
+        })
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+
+  deletePerson(id: string) {
+    const body = new HttpParams().set('IdPersona', id);
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(apiUrl + 'eliminarPersona', body.toString(), {
           headers: new HttpHeaders()
             .set('Content-Type', 'application/x-www-form-urlencoded')
             .set('Authorization', 'Bearer ' + localStorage.getItem('token')),

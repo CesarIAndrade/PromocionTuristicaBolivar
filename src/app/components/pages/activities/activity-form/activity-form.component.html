@@ -63,4 +63,24 @@
       </div>
     </div>
   </div>
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <input
+          style="display: none;"
+          type="file"
+          placeholder="Awesome Input"
+          (change)="uploadPhoto($event)"
+          #image
+          (change)="uploadPhoto($event)"
+        />
+        <img
+          [src]="imageSelected || '../../../../assets/images/no_image.jpg'"
+          (click)="image.click()"
+          width="100%"
+          height="100%"
+        />
+      </div>
+    </div>
+  </div>
 </div>

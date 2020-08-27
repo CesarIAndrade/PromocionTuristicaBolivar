@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivitiesService } from 'src/app/services/activities.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmModalComponent } from 'src/app/components/confirm-modal/confirm-modal.component';
+import { imagesUrl } from 'src/environments/environment';
 
 @Component({
   selector: 'app-activities-list',
@@ -8,23 +11,55 @@ import { Router } from '@angular/router';
   styleUrls: ['./activities-list.component.css'],
 })
 export class ActivitiesListComponent implements OnInit {
-  constructor(private activitiesService: ActivitiesService, private router: Router) {}
+  constructor(
+    private activitiesService: ActivitiesService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.getActivities();
+    this.activitiesService.refresh$.subscribe(() => {
+      this.getActivities();
+    });
   }
 
   activities: any[] = [];
 
   async getActivities() {
     var response: any = await this.activitiesService.getActivities();
-    console.log(response);
-    if(response?.success) {
+    if (response?.success) {
+      response.success.map((item) => {
+        item.Imagen = imagesUrl + item.Imagen;
+      });
       this.activities = response.success;
     }
   }
 
   addActivity() {
     this.router.navigateByUrl('/activity-form');
+  }
+
+  editActivity(id: number) {
+    this.router.navigateByUrl(`/activity-form/${id}`);
+  }
+
+  deleteActivity(id: string) {
+    let dialogRef = this.dialog.open(ConfirmModalComponent, {
+      width: '250px',
+      height: 'auto',
+    });
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        try {
+          var response: any = await this.activitiesService.deleteActivity(id);
+          if (response?.success) {
+            this.getActivities();
+          }
+        } catch (error) {
+          alert('Algo salió mal');
+        }
+      }
+    });
   }
 }

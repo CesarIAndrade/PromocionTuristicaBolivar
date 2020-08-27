@@ -48,6 +48,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'activity-form/:id',
+    loadChildren: () =>
+      import(
+        './components/pages/activities/activity-form/activity-form.module'
+      ).then((m) => m.ActivityFormModule),
+  },
+  {
     path: 'activity-form',
     loadChildren: () =>
       import(
@@ -61,6 +68,28 @@ const routes: Routes = [
         './components/pages/activities/activities-list/activities-list.module'
       ).then((m) => m.ActivitiesListModule),
   },
+  {
+    path: 'research-list',
+    loadChildren: () =>
+      import(
+        './components/pages/research/research-list/research-list.module'
+      ).then((m) => m.ResearchListModule),
+  },
+  {
+    path: 'research-item',
+    loadChildren: () =>
+      import(
+        './components/pages/research/research-item/research-item.module'
+      ).then((m) => m.ResearchItemModule),
+  },
+  {
+    path: 'research-form',
+    loadChildren: () =>
+      import(
+        './components/pages/research/research-form/research-form.module'
+      ).then((m) => m.ResearchFormModule),
+  },
+  { path: 'person-form', loadChildren: () => import('./components/pages/persons/persons-form/persons-form.module').then(m => m.PersonsFormModule) },
 ];
 
 @NgModule({

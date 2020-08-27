@@ -5,24 +5,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { HeaderComponent } from './components/header/header.component';
-import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component'
-
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
 import { ActivitiesModule } from './components/pages/activities/activities.module';
+import { ResearchModule } from './components/pages/research/research.module';
+import { ComponentsModule } from './components/components.module';
+import { PersonsModule } from './components/pages/persons/persons.module';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, ConfirmModalComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    ActivitiesModule
+    ActivitiesModule,
+    ResearchModule,
+    ComponentsModule,
+    PersonsModule,
   ],
-  entryComponents: [ConfirmModalComponent],
   providers: [],
   bootstrap: [AppComponent],
 })

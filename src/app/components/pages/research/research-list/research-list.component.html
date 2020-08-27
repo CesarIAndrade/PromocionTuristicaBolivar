@@ -1,0 +1,19 @@
+<div class="row">
+  <div [class]="searchBarClass">
+    <app-search-bar></app-search-bar>
+  </div>
+  <div class="col-lg-2" *ngIf="menu">
+    <button
+      style="width: 100%; margin-top: 5px; height: auto"
+      mat-button
+      color="primary"
+      (click)="goToAddResearch()"
+    >
+      Agragar Publicación
+    </button>
+  </div>
+
+  <div class="col-lg-12" *ngFor="let research of [1, 1, 1, 1, 1]">
+    <app-research-item></app-research-item>
+  </div>
+</div>
