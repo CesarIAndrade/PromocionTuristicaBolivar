@@ -1,6 +1,23 @@
-<div class="card mb-2">
+<div class="card mb-2 d-block">
   <div class="card-body">
-    <h2>Titulo</h2>
-    <p class="text-muted">Autores</p>
+    <h2>{{ research.TituloPublicacion }}</h2>
+    <p class="text-muted">{{ authors }}</p>
+    <small> {{ research.FechaPublicacion }} </small>
+    <br />
+    <ng-container *ngIf="editResearch">
+      <button
+        mat-button
+        (click)="updateResearch(research.IdPublicacion)"
+        class="mr-2"
+        style="margin-left: 79%"
+      >
+        <mat-icon style="color: var(--warning)"> edit </mat-icon>
+        Editar
+      </button>
+      <button mat-button (click)="deleteResearch(research.IdPublicacion)">
+        <mat-icon style="color: var(--danger)"> delete_outline </mat-icon>
+        Eliminar
+      </button>
+    </ng-container>
   </div>
 </div>

@@ -1,6 +1,7 @@
 h2:hover {
     text-decoration: underline;
-    color: #ad6627
+    color: #ad6627;
+    cursor: pointer;
 }
 
 .card {

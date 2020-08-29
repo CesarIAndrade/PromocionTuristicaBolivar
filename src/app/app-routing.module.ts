@@ -89,7 +89,20 @@ const routes: Routes = [
         './components/pages/research/research-form/research-form.module'
       ).then((m) => m.ResearchFormModule),
   },
-  { path: 'person-form', loadChildren: () => import('./components/pages/persons/persons-form/persons-form.module').then(m => m.PersonsFormModule) },
+  {
+    path: 'research-form/:id',
+    loadChildren: () =>
+      import(
+        './components/pages/research/research-form/research-form.module'
+      ).then((m) => m.ResearchFormModule),
+  },
+  {
+    path: 'person-form',
+    loadChildren: () =>
+      import(
+        './components/pages/persons/persons-form/persons-form.module'
+      ).then((m) => m.PersonsFormModule),
+  },
 ];
 
 @NgModule({

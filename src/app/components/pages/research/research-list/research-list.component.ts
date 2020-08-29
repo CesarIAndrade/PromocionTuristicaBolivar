@@ -9,19 +9,22 @@ import { Router } from '@angular/router';
 })
 export class ResearchListComponent implements OnInit {
   constructor(
-    private researchSvc: ResearchService,
+    private researchService: ResearchService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    // this.getResearchList();
+    this.getResearchList();
     if(localStorage.getItem('token')) {
-      this.searchBarClass  = 'col-lg-10';
+      this.searchBarClass  = 'col-lg-10 col-md-9';
       this.menu = true;
     } else {
-      this.searchBarClass  = 'col-lg-12';
+      this.searchBarClass  = 'col-lg-12 col-md-9';
       this.menu = false;
     }
+    this.researchService.refresh$.subscribe(() => {
+      this.getResearchList();
+    })
   }
 
   researchList: any[] = [];
@@ -30,7 +33,7 @@ export class ResearchListComponent implements OnInit {
   menu: boolean;
 
   async getResearchList() {
-    var response: any = await this.researchSvc.getResearchList();
+    var response: any = await this.researchService.getResearchList();
     console.log(response);
     if (response?.success) {
       this.researchList = response.success;

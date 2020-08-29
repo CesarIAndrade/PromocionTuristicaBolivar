@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/components/confirm-modal/confirm-modal.component';
 import { PersonsService } from 'src/app/services/persons.service';
 
@@ -14,8 +14,12 @@ import { PersonsService } from 'src/app/services/persons.service';
 export class PersonsFormComponent implements OnInit {
   constructor(
     private personsService: PersonsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+    if (this.data) {
+      this.authors = this.data.authors;
+    }
     this.personForm = new FormGroup({
       personId: new FormControl(''),
       document: new FormControl('', [
@@ -42,7 +46,7 @@ export class PersonsFormComponent implements OnInit {
     this.getPersons();
     this.personsService.refresh$.subscribe(() => {
       this.personsService.authors = this.authors;
-    })
+    });
   }
 
   async getPersons() {
@@ -50,8 +54,14 @@ export class PersonsFormComponent implements OnInit {
     if (response?.success) {
       this.loading = false;
       response.success.map((item) => {
+        if (this.authors.includes(item.IdPersona)) {
+          item.selected = 'Si';
+          item.checked = true;
+        } else {
+          item.selected = 'No';
+          item.checked = false;
+        }
         item.names = `${item.PrimerNombre} ${item.SegundoNombre} ${item.PrimerApellido} ${item.SegundoApellido}`;
-        item.selected = 'No';
       });
       this.persons.data = response.success;
       this.persons.paginator = this.paginator;
@@ -174,19 +184,30 @@ export class PersonsFormComponent implements OnInit {
 
   selectAuthor(person, event) {
     if (event.target.checked) {
-      if (!this.authors.includes(person.IdPersona)) {
-        this.authors.push(person.IdPersona);
-        person.selected = 'Si';
-      }
+      this.authors.push(person.IdPersona);
+      person.selected = 'Si';
+      person.checked = true;
     } else {
-      if (this.authors.includes(person.IdPersona)) {
-        var author = this.authors.find(
-          (author) => author.IdPersona === person.IdPersona
-        );
-        var index = this.authors.indexOf(author);
-        this.authors.splice(index, 1);
-        person.selected = 'No';
-      }
+      var index = this.authors.indexOf(person.IdPersona);
+      this.authors = this.authors.splice(index, 1);
+      person.selected = 'No';
+      person.checked = false;
     }
+
+    // if (event.target.checked) {
+    //   if (!this.authors.includes(person.IdPersona)) {
+    //     this.authors.push(person.IdPersona);
+    //     person.selected = 'Si';
+    //   }
+    // } else {
+    //   if (this.authors.includes(person.IdPersona)) {
+    //     var author = this.authors.find(
+    //       (author) => author.IdPersona === person.IdPersona
+    //     );
+    //     var index = this.authors.indexOf(author);
+    //     this.authors.splice(index, 1);
+    //     person.selected = 'No';
+    //   }
+    // }
   }
 }
