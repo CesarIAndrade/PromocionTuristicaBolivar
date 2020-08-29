@@ -6,6 +6,7 @@ import { ArticlesService } from 'src/app/services/articles.service';
 import { imagesUrl } from 'src/environments/environment';
 
 import { ConfirmModalComponent } from 'src/app/components/confirm-modal/confirm-modal.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 export interface Article {
   Descripcion: string;
@@ -27,23 +28,33 @@ export class ArticlesListComponent implements OnInit {
   constructor(
     private articleService: ArticlesService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {}
 
   articles: Article[] = [];
   addArticle: boolean;
+  editArticleButton: boolean;
 
   ngOnInit(): void {
     if(localStorage.getItem('token')) {
       this.getArticles('listarNoticias', true);
       this.addArticle = true;
+      this.editArticleButton = true;
     } else {
       this.getArticles('pListarNoticias', false);
       this.addArticle = false;
+      this.editArticleButton = false;
     }
     this.articleService.refresh$.subscribe(() => {
       this.getArticles('listarNoticias', true);
     });
+    this.authService.autenticated$.subscribe(() => {
+      this.getArticles('pListarNoticias', false);
+      this.addArticle = false;
+      this.editArticleButton = false;
+    })
+
   }
 
   async getArticles(url, autenticated) {

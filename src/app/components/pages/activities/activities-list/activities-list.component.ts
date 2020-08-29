@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/components/confirm-modal/confirm-modal.component';
 import { imagesUrl } from 'src/environments/environment';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-activities-list',
@@ -14,17 +15,31 @@ export class ActivitiesListComponent implements OnInit {
   constructor(
     private activitiesService: ActivitiesService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    if(localStorage.getItem('token')) {
+      this.addActivityButton = true;
+      this.editActivityButton = true;
+    } else {
+      this.addActivityButton = false;
+      this.editActivityButton = false;
+    }
     this.getActivities();
     this.activitiesService.refresh$.subscribe(() => {
       this.getActivities();
     });
+    this.authService.autenticated$.subscribe(() => {
+      this.addActivityButton = false;
+      this.editActivityButton = false;
+    })
   }
 
   activities: any[] = [];
+  addActivityButton: boolean;
+  editActivityButton: boolean;
 
   async getActivities() {
     var response: any = await this.activitiesService.getActivities();

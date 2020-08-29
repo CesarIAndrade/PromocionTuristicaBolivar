@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResearchService } from 'src/app/services/research.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-research-list',
@@ -10,27 +11,33 @@ import { Router } from '@angular/router';
 export class ResearchListComponent implements OnInit {
   constructor(
     private researchService: ResearchService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.getResearchList();
     if(localStorage.getItem('token')) {
       this.searchBarClass  = 'col-lg-10 col-md-9';
-      this.menu = true;
+      this.addResearch = true;
     } else {
-      this.searchBarClass  = 'col-lg-12 col-md-9';
-      this.menu = false;
+      this.searchBarClass  = 'col-lg-12 col-md-12';
+      this.addResearch = false;
     }
     this.researchService.refresh$.subscribe(() => {
       this.getResearchList();
     })
+    this.authService.autenticated$.subscribe(() => {
+      this.searchBarClass  = 'col-lg-12 col-md-12';
+      this.addResearch = false;
+    })
+
   }
 
   researchList: any[] = [];
 
   searchBarClass: string;
-  menu: boolean;
+  addResearch: boolean;
 
   async getResearchList() {
     var response: any = await this.researchService.getResearchList();

@@ -76,6 +76,7 @@ export class HeaderComponent implements OnInit {
     this.authService.logout().then((ok) => {
       this.logged = true;
       localStorage.clear();
+      this.authService.autenticated$.emit();
       this.navItems = [
         {
           route: 'Artículos',
