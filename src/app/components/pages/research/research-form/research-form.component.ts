@@ -5,6 +5,7 @@ import { PersonsService } from 'src/app/services/persons.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ResearchService } from 'src/app/services/research.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-research-form',
@@ -17,7 +18,8 @@ export class ResearchFormComponent implements OnInit {
     private personsService: PersonsService,
     private researchService: ResearchService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private location: Location,
   ) {
     this.researchForm = new FormGroup({
       researchId: new FormControl(''),
@@ -132,9 +134,12 @@ export class ResearchFormComponent implements OnInit {
           this.router.navigateByUrl('/research-list');
         }
       } catch (error) {
-        // alert('Te faltan los autores');
-        console.log(error);
+        alert('Te faltan los autores');
       }
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

@@ -10,7 +10,6 @@
   >
     <span class="navbar-toggler-icon"></span>
   </button>
-
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <div class="social-part">
       <img
@@ -21,46 +20,28 @@
       />
     </div>
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-      <li class="nav-item mt-1">
+      <li class="nav-item mr-2" *ngFor="let navItem of navItems" >
         <a
           class="nav-link"
-          routerLink="/articles-list"
+          [routerLink]="navItem.url"
           routerLinkActive="active"
-          >Artículos</a
-        >
+          >{{ navItem.route }}</a>
       </li>
-      <li class="nav-item mt-1">
-        <a
-          class="nav-link"
-          routerLink="/activities-list"
-          routerLinkActive="active"
-          >Actividades</a
-        >
-      </li>
-      <li class="nav-item mt-1">
-        <a class="nav-link" routerLink="/research-list" routerLinkActive="active"
-          >Publicaciones</a
-        >
-      </li>
-      <li class="nav-item mt-1">
-        <a class="nav-link" routerLink="/user-form" routerLinkActive="active"
-          >Usuarios</a
-        >
-      </li>
-      <li class="nav-item mt-1">
+
+      <li class="nav-item mr-2">
         <a
           class="nav-link log"
-          style="background-color: #08ad46; color: #fff;"
+          style="background-color: #08ad46; color: #fff"
           *ngIf="logged"
-          (click)="goToLogin()"
+          routerLink="/login"
           >Login</a
         >
       </li>
-      <li class="nav-item mt-1">
+      <li class="nav-item mr-2">
         <a
           class="nav-link log"
           *ngIf="!logged"
-          style="background-color: #ad6627; color: #fff;"
+          style="background-color: #ad6627; color: #fff"
           (click)="logout()"
           >Log Out</a
         >

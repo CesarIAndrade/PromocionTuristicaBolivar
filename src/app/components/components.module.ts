@@ -9,11 +9,14 @@ let myComponents = [ConfirmModalComponent, HeaderComponent, SearchBarComponent];
 
 import { MaterialModule } from 'src/app/material.module';
 
+import { RouterModule } from '@angular/router';
+
 @NgModule({
   declarations: [...myComponents],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    RouterModule
   ],
   exports: [...myComponents]
 })

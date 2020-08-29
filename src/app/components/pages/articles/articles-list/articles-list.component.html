@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-3 d-flex align-items-center">
+  <div class="col-xs-12 col-sm-12 col-md-3 d-flex align-items-center" *ngIf="addArticle">
     <div class="card mt-2 d-flex justify-content-center">
       <img
         (click)="createArticle()"
@@ -24,7 +24,7 @@
         <img [src]="article.ImagenTitulo" alt="article.Descripcion" />
       </div>
       <div class="content p-2">
-        <h2 class="header">{{ article.Titulo | slice: 0:20 }}...</h2>
+        <small class="header">{{ article.Titulo | slice: 0:20 }}...</small>
         <div class="d-flex justify-content-between">
           <small class="text-muted">{{
             article.FechaActualizacion | date

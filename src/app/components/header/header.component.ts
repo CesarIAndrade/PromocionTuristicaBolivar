@@ -13,22 +13,85 @@ export class HeaderComponent implements OnInit {
   logged: boolean = true;
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
       this.logged = false;
+      this.navItems = [
+        {
+          route: 'Artículos',
+          url: '/articles-list',
+        },
+        {
+          route: 'Actividades',
+          url: '/activities-list',
+        },
+        {
+          route: 'Publicaciones',
+          url: '/research-list',
+        },
+        {
+          route: 'Usuarios',
+          url: '/user-form',
+        },
+      ];
+    } else {
+      this.navItems = [
+        {
+          route: 'Artículos',
+          url: '/articles-list',
+        },
+        {
+          route: 'Actividades',
+          url: '/activities-list',
+        },
+        {
+          route: 'Publicaciones',
+          url: '/research-list',
+        },
+      ];
     }
     this.authService.autenticated$.subscribe(() => {
       this.logged = false;
+      this.navItems = [
+        {
+          route: 'Artículos',
+          url: '/articles-list',
+        },
+        {
+          route: 'Actividades',
+          url: '/activities-list',
+        },
+        {
+          route: 'Publicaciones',
+          url: '/research-list',
+        },
+        {
+          route: 'Usuarios',
+          url: '/user-form',
+        },
+      ];
     });
   }
 
-  goToLogin(): void {
-    this.router.navigate(['/login']);
-  }
-
   logout() {
-    this.authService.logout().then(ok => {
+    this.authService.logout().then((ok) => {
       this.logged = true;
       localStorage.clear();
-    })
+      this.navItems = [
+        {
+          route: 'Artículos',
+          url: '/articles-list',
+        },
+        {
+          route: 'Actividades',
+          url: '/activities-list',
+        },
+        {
+          route: 'Publicaciones',
+          url: '/research-list',
+        },
+      ];
+    });
   }
+
+  navItems = [];
 }

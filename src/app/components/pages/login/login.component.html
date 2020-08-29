@@ -21,13 +21,14 @@
               name="password"
               formControlName="password"
             />
-            <mat-icon matSuffix (click)="mostrarContrasena()"
+            <mat-icon matSuffix (click)="showPassword()"
               >visibility</mat-icon
             >
           </mat-form-field>
           <button
+            mat-button
             [disabled]="loginForm.invalid"
-            class="btn btn-outline-success btn-block mt-2"
+            class="btn bg-success text-white btn-block mt-2"
           >
             Entrar
           </button>

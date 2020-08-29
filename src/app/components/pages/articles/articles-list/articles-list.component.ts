@@ -31,16 +31,23 @@ export class ArticlesListComponent implements OnInit {
   ) {}
 
   articles: Article[] = [];
+  addArticle: boolean;
 
   ngOnInit(): void {
-    this.getArticles();
+    if(localStorage.getItem('token')) {
+      this.getArticles('listarNoticias', true);
+      this.addArticle = true;
+    } else {
+      this.getArticles('pListarNoticias', false);
+      this.addArticle = false;
+    }
     this.articleService.refresh$.subscribe(() => {
-      this.getArticles();
+      this.getArticles('listarNoticias', true);
     });
   }
 
-  async getArticles() {
-    var response: any = await this.articleService.getArticles();
+  async getArticles(url, autenticated) {
+    var response: any = await this.articleService.getArticles(url, autenticated);
     if (response?.success) {
       var temp_articles: Article[] = [];
       response.success.map((article: Article) => {
@@ -69,7 +76,7 @@ export class ArticlesListComponent implements OnInit {
         try {
           var response: any = await this.articleService.deleteArticle(id);
           if (response?.success) {
-            this.getArticles();
+            this.getArticles('ListarNoticias', true);
           }
         } catch (error) {
           alert('Algo salió mal');
@@ -88,7 +95,7 @@ export class ArticlesListComponent implements OnInit {
         try {
           var response: any = await this.articleService.changeState(id, state);
           if (response?.success) {
-            this.getArticles();
+            this.getArticles('ListarNoticias', true);
           }
         } catch (error) {
           alert('Algo salió mal');

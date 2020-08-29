@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  mostrarContrasena(): void {
+  showPassword(): void {
     if (this.passwordFieldType == 'password') {
       this.passwordFieldType = 'text';
     } else {
