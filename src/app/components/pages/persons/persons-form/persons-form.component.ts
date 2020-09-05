@@ -111,7 +111,9 @@ export class PersonsFormComponent implements OnInit {
             this.personForm.reset();
             this.getPersons();
           }
-        } catch (error) {}
+        } catch (error) {
+          alert('Persona ya existe')
+        }
       }
     }
   }

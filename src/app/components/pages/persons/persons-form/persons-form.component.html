@@ -71,24 +71,31 @@
         <ng-container matColumnDef="actions">
           <th colspan="3" mat-header-cell *matHeaderCellDef>Acciones</th>
           <ng-container *matCellDef="let element">
-            <td mat-cell>
-              <button
-                mat-icon-button
-                type="button"
-                (click)="showPerson(element)"
-              >
-                <mat-icon style="color: #f0ad4e">edit</mat-icon>
-              </button>
-            </td>
-            <td mat-cell>
-              <button
-                mat-icon-button
-                type="button"
-                (click)="deletePerson(element.IdPersona)"
-              >
-                <mat-icon style="color: #d9534f">delete_outline</mat-icon>
-              </button>
-            </td>
+            <ng-container *ngIf="element.Asignacion == '1'">
+              <td mat-cell>
+                <button
+                  mat-icon-button
+                  type="button"
+                  (click)="showPerson(element)"
+                >
+                  <mat-icon style="color: #f0ad4e">edit</mat-icon>
+                </button>
+              </td>
+              <td mat-cell>
+                <button
+                  mat-icon-button
+                  type="button"
+                  (click)="deletePerson(element.IdPersona)"
+                >
+                  <mat-icon style="color: #d9534f">delete_outline</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <ng-container *ngIf="element.Asignacion == '0'">
+              <td mat-cell></td>
+              <td mat-cell></td>
+            </ng-container>
+
             <td mat-cell>
               <div class="form-check">
                 <input
