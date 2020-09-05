@@ -35,11 +35,11 @@ export class ArticlesService {
     });
   }
 
-  getArticle(id: string) {
+  getArticle(id: string, url: string) {
     const body = new HttpParams().set('IdNoticia', id);
     return new Promise((resolve, reject) => {
       this.http
-        .post(apiUrl + 'buscarNoticia', body.toString(), {
+        .post(apiUrl + url, body.toString(), {
           headers: new HttpHeaders()
             .set('Content-Type', 'application/x-www-form-urlencoded')
             .set('Authorization', 'Bearer ' + localStorage.getItem('token')),

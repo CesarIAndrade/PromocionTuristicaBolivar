@@ -103,6 +103,21 @@ const routes: Routes = [
         './components/pages/persons/persons-form/persons-form.module'
       ).then((m) => m.PersonsFormModule),
   },
+  {
+    path: 'activity-details',
+    loadChildren: () =>
+      import(
+        './components/pages/activities/activity-details/activity-details.module'
+      ).then((m) => m.ActivityDetailsModule),
+  },
+  {
+    path: 'acticle-details/:id',
+    loadChildren: () =>
+      import(
+        './components/pages/articles/article-details/article-details.module'
+      ).then((m) => m.ArticleDetailsModule),
+  },
+  { path: 'recomended-articles', loadChildren: () => import('./components/pages/articles/recomended-articles/recomended-articles.module').then(m => m.RecomendedArticlesModule) },
 ];
 
 @NgModule({

@@ -21,7 +21,9 @@ export class LoginComponent implements OnInit {
   passwordFieldType: string = 'password';
 
   ngOnInit(): void {    
+    // localStorage.clear();
   }
+
 
   async login() {
     try {
@@ -30,8 +32,9 @@ export class LoginComponent implements OnInit {
         this.loginForm.get('password').value
       );
       if (response?.success) {
-        const { Token } = response.success;
+        const { Token, Usuario } = response.success;
         localStorage.setItem('token', Token);
+        localStorage.setItem('userType', Usuario.TipoUsuario.Identidad);
         this.authService.autenticated$.emit();
         this.router.navigate(['/']);
       }

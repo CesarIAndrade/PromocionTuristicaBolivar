@@ -77,6 +77,10 @@ export class ArticlesListComponent implements OnInit {
     this.router.navigateByUrl(`/article-form/${id}`);
   }
 
+  goToArticle(id: number) {
+    this.router.navigateByUrl(`/acticle-details/${id}`);
+  }
+
   deleteArticle(id: string) {
     let dialogRef = this.dialog.open(ConfirmModalComponent, {
       width: '250px',

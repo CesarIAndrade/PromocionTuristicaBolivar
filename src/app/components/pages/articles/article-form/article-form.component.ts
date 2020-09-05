@@ -69,7 +69,7 @@ export class ArticleFormComponent implements OnInit {
   }
 
   async getArticle(id: string) {
-    var response: any = await this.articleService.getArticle(id);
+    var response: any = await this.articleService.getArticle(id, 'buscarNoticia');
     if (response?.success) {
       const {
         Descripcion,

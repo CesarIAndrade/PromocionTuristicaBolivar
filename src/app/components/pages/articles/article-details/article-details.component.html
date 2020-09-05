@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+      <h2>{{ article.title }}</h2>
+      <img [src]="article.imageUrl" alt="" />
+      <label>{{ article.author }} - {{ article.created_at }}</label>
+      <p>{{ article.description }}</p>
+      <p>{{ article.shortDescription }}</p>
+    </div>
+    <div class="col-lg-4">
+      <h2>Noticias Recomendadas</h2>
+      <div class="card">
+        <div class="card-body">
+          <app-recomended-articles></app-recomended-articles>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

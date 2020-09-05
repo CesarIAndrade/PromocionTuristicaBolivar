@@ -1,0 +1,9 @@
+<div class="row" *ngFor="let article of articles">
+  <div class="card mb-2" (click)=goToArticle(article.IdNoticia)>
+      <div class="card-body">
+        <a> {{ article.Titulo }} </a>
+        <br />
+        <small class="text-muted"> {{ article.FechaActualizacion }} </small>
+      </div>
+  </div>
+</div>

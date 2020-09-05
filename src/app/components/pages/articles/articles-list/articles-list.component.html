@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="col-xs-12 col-sm-12 col-md-3" *ngFor="let article of articles">
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3" *ngFor="let article of articles">
     <div class="card mt-2">
       <div class="image">
         <div *ngIf="editArticleButton">
@@ -24,15 +24,15 @@
             <mat-icon>edit</mat-icon>
           </span>
         </div>
-        <img [src]="article.ImagenTitulo" alt="article.Descripcion" />
+        <img [src]="article.ImagenTitulo" alt="article.Descripcion"/>
       </div>
       <div class="content p-2">
-        <small class="header">{{ article.Titulo | slice: 0:20 }}...</small>
+        <small (click)="goToArticle(article.IdNoticia)" class="header">{{ article.Titulo | slice: 0:45 }}...</small>
         <div class="d-flex justify-content-between">
           <small class="text-muted">{{
             article.FechaActualizacion | date
           }}</small>
-          <div *ngIf="editArticleButton">
+          <div *ngIf="editArticleButton" class="articleState">
             <span
               (click)="
                 changeState(article.IdNoticia, article.EstadoPublicacion)

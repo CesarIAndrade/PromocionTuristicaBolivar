@@ -15,69 +15,36 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('token')) {
       this.logged = false;
-      this.navItems = [
-        {
-          route: 'Artículos',
-          url: '/articles-list',
-        },
-        {
-          route: 'Actividades',
-          url: '/activities-list',
-        },
-        {
-          route: 'Publicaciones',
-          url: '/research-list',
-        },
-        {
-          route: 'Usuarios',
-          url: '/user-form',
-        },
-      ];
+      if (localStorage.getItem('userType') == '1') {
+        this.buildNavTree('1');
+      } else {
+        this.buildNavTree('2');
+      }
     } else {
-      this.navItems = [
-        {
-          route: 'Artículos',
-          url: '/articles-list',
-        },
-        {
-          route: 'Actividades',
-          url: '/activities-list',
-        },
-        {
-          route: 'Publicaciones',
-          url: '/research-list',
-        },
-      ];
+      this.buildNavTree('');
     }
     this.authService.autenticated$.subscribe(() => {
-      this.logged = false;
-      this.navItems = [
-        {
-          route: 'Artículos',
-          url: '/articles-list',
-        },
-        {
-          route: 'Actividades',
-          url: '/activities-list',
-        },
-        {
-          route: 'Publicaciones',
-          url: '/research-list',
-        },
-        {
-          route: 'Usuarios',
-          url: '/user-form',
-        },
-      ];
+      this.logged ? (this.logged = false) : (this.logged = true);
+      if (localStorage.getItem('userType') == '1') {
+        this.buildNavTree('1');
+      } else {
+        this.buildNavTree('2');
+      }
     });
   }
 
   logout() {
     this.authService.logout().then((ok) => {
-      this.logged = true;
       localStorage.clear();
       this.authService.autenticated$.emit();
-      this.navItems = [
+      this.buildNavTree('');
+    });
+    this.router.navigateByUrl('/');
+  }
+
+  buildNavTree(userType: string) {
+    if (userType == '1') {
+      return (this.navItems = [
         {
           route: 'Artículos',
           url: '/articles-list',
@@ -90,8 +57,38 @@ export class HeaderComponent implements OnInit {
           route: 'Publicaciones',
           url: '/research-list',
         },
-      ];
-    });
+        {
+          route: 'Usuarios',
+          url: '/user-form',
+        },
+      ]);
+    } else if(userType == '2') {
+      return (this.navItems = [
+        {
+          route: 'Artículos',
+          url: '/articles-list',
+        },
+        {
+          route: 'Publicaciones',
+          url: '/research-list',
+        },
+      ]);
+    } else {
+      return (this.navItems = [
+        {
+          route: 'Artículos',
+          url: '/articles-list',
+        },
+        {
+          route: 'Actividades',
+          url: '/activities-list',
+        },
+        {
+          route: 'Publicaciones',
+          url: '/research-list',
+        },
+      ]);
+    }
   }
 
   navItems = [];

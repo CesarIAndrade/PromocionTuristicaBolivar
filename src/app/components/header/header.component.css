@@ -15,7 +15,6 @@ nav {
 ul li a {
   color: #ad6627;
   margin: 0 auto;
-
 }
 
 .log {
@@ -25,4 +24,10 @@ ul li a {
 
 a:hover {
   cursor: pointer;
+}
+
+@media (max-width: 570px) {
+  .log {
+    padding: 10px;
+  }
 }
