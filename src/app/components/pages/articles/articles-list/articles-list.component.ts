@@ -91,7 +91,7 @@ export class ArticlesListComponent implements OnInit {
         try {
           var response: any = await this.articleService.deleteArticle(id);
           if (response?.success) {
-            this.getArticles('ListarNoticias', true);
+            this.getArticles('listarNoticias', true);
           }
         } catch (error) {
           alert('Algo salió mal');
@@ -109,8 +109,10 @@ export class ArticlesListComponent implements OnInit {
       if (result) {
         try {
           var response: any = await this.articleService.changeState(id, state);
+          console.log(response);
+          
           if (response?.success) {
-            this.getArticles('ListarNoticias', true);
+            this.getArticles('listarNoticias', true);
           }
         } catch (error) {
           alert('Algo salió mal');

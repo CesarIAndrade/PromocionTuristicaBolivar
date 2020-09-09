@@ -17,9 +17,9 @@ export class ResearchItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    var names: string;
     this.research.Autores.map((author) => {
-      var names = `${author.PrimerNombre} ${author.PrimerApellido} ${author.SegundoApellido}`;
-      this.authors += names + ', ';
+      this.authors += `${author.PrimerNombre} ${author.PrimerApellido} ${author.SegundoApellido}, `;
     });
     localStorage.getItem('token')
       ? (this.editResearch = true)
