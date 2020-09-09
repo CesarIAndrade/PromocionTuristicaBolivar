@@ -1,6 +1,8 @@
 <div class="card mb-2 d-block">
   <div class="card-body">
-    <h2>{{ research.TituloPublicacion }}</h2>
+    <h2 (click)="goToResearch(research.EnlacePublicacion)">
+      {{ research.TituloPublicacion }}
+    </h2>
     <p class="text-muted">{{ authors }}</p>
     <small> {{ research.FechaPublicacion }} </small>
     <br />

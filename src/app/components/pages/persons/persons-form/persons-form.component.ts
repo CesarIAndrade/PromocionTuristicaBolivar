@@ -190,26 +190,9 @@ export class PersonsFormComponent implements OnInit {
       person.selected = 'Si';
       person.checked = true;
     } else {
-      var index = this.authors.indexOf(person.IdPersona);
-      this.authors = this.authors.splice(index, 1);
+      this.authors = this.authors.filter(author => author !== person.IdPersona)
       person.selected = 'No';
       person.checked = false;
     }
-
-    // if (event.target.checked) {
-    //   if (!this.authors.includes(person.IdPersona)) {
-    //     this.authors.push(person.IdPersona);
-    //     person.selected = 'Si';
-    //   }
-    // } else {
-    //   if (this.authors.includes(person.IdPersona)) {
-    //     var author = this.authors.find(
-    //       (author) => author.IdPersona === person.IdPersona
-    //     );
-    //     var index = this.authors.indexOf(author);
-    //     this.authors.splice(index, 1);
-    //     person.selected = 'No';
-    //   }
-    // }
   }
 }

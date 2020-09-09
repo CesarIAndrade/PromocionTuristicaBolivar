@@ -16,8 +16,7 @@ export class ResearchItemComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    var names: string;
+  ngOnInit(): void {    
     this.research.Autores.map((author) => {
       this.authors += `${author.PrimerNombre} ${author.PrimerApellido} ${author.SegundoApellido}, `;
     });
@@ -51,5 +50,9 @@ export class ResearchItemComponent implements OnInit {
 
   updateResearch(id: string) {
     this.router.navigate(['/research-form', id]);
+  }
+
+  goToResearch(url) {
+    window.open(url, "_blank");
   }
 }
