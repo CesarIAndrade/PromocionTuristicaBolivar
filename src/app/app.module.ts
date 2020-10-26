@@ -11,6 +11,7 @@ import { ActivitiesModule } from './components/pages/activities/activities.modul
 import { ResearchModule } from './components/pages/research/research.module';
 import { ComponentsModule } from './components/components.module';
 import { PersonsModule } from './components/pages/persons/persons.module';
+import { ActivityModalModule } from './components/pages/activities/activity-modal/activity-modal.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { PersonsModule } from './components/pages/persons/persons.module';
     ResearchModule,
     ComponentsModule,
     PersonsModule,
+    ActivityModalModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

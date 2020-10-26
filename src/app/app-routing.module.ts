@@ -118,6 +118,7 @@ const routes: Routes = [
       ).then((m) => m.ArticleDetailsModule),
   },
   { path: 'recomended-articles', loadChildren: () => import('./components/pages/articles/recomended-articles/recomended-articles.module').then(m => m.RecomendedArticlesModule) },
+  { path: 'activity-modal', loadChildren: () => import('./components/pages/activities/activity-modal/activity-modal.module').then(m => m.ActivityModalModule) },
 ];
 
 @NgModule({

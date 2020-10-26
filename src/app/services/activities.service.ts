@@ -67,8 +67,8 @@ export class ActivitiesService {
     });
   }
 
-  deleteActivity(activityId: string) {
-    const body = new HttpParams().set('IdRelacionesActividad', activityId);
+  deleteActivity(id: string) {
+    const body = new HttpParams().set('IdRelacionesActividad', id);
     return new Promise((resolve, reject) => {
       this.http
         .post(apiUrl + 'eliminarActividad', body.toString(), {
@@ -87,8 +87,8 @@ export class ActivitiesService {
     });
   }
 
-  getActivity(activityId: string) {
-    const body = new HttpParams().set('IdRelacionesActividad', activityId);
+  getActivity(id: string) {
+    const body = new HttpParams().set('IdRelacionesActividad', id);
     return new Promise((resolve, reject) => {
       this.http
         .post(apiUrl + 'buscarActividad', body.toString(), {
@@ -108,7 +108,7 @@ export class ActivitiesService {
   }
 
   editActivity(
-    activityId: string,
+    id: string,
     activity: string,
     comunity: string,
     description: string,
@@ -119,7 +119,7 @@ export class ActivitiesService {
     image: File
   ) {
     const fd = new FormData();
-    fd.append('IdRelacionesActividad', activityId);
+    fd.append('IdRelacionesActividad', id);
     fd.append('Actividad', activity);
     fd.append('Comunidad', comunity);
     fd.append('Descripcion', description);

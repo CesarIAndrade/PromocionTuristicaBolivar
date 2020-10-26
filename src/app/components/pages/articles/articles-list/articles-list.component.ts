@@ -35,9 +35,12 @@ export class ArticlesListComponent implements OnInit {
   articles: Article[] = [];
   addArticle: boolean;
   editArticleButton: boolean;
+  acrticlesListClass = "col-xs-12 col-sm-12 col-md-4 col-lg-3";
+  articlesToShow: number;
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')) {
+
+    if (localStorage.getItem('token')) {
       this.getArticles('listarNoticias', true);
       this.addArticle = true;
       this.editArticleButton = true;
@@ -53,12 +56,14 @@ export class ArticlesListComponent implements OnInit {
       this.getArticles('pListarNoticias', false);
       this.addArticle = false;
       this.editArticleButton = false;
-    })
-
+    });
   }
 
   async getArticles(url, autenticated) {
-    var response: any = await this.articleService.getArticles(url, autenticated);
+    var response: any = await this.articleService.getArticles(
+      url,
+      autenticated
+    );
     if (response?.success) {
       var temp_articles: Article[] = [];
       response.success.map((article: Article) => {
@@ -66,6 +71,11 @@ export class ArticlesListComponent implements OnInit {
         temp_articles.push(article);
       });
       this.articles = temp_articles;
+      this.articlesToShow = this.articles.length;
+      if(this.router.url == "/home") {
+        this.acrticlesListClass = "col-xs-12 col-sm-12 col-md-4 col-lg-4";
+        this.articlesToShow = 3;
+      }
     }
   }
 
@@ -101,23 +111,47 @@ export class ArticlesListComponent implements OnInit {
   }
 
   async changeState(id, state) {
-    let dialogRef = this.dialog.open(ConfirmModalComponent, {
-      width: '250px',
-      height: 'auto',
-    });
-    dialogRef.afterClosed().subscribe(async (result) => {
-      if (result) {
-        try {
-          var response: any = await this.articleService.changeState(id, state);
-          console.log(response);
-          
-          if (response?.success) {
-            this.getArticles('listarNoticias', true);
+    if (localStorage.getItem('userType') != '2') {
+      let dialogRef = this.dialog.open(ConfirmModalComponent, {
+        width: '250px',
+        height: 'auto',
+      });
+      dialogRef.afterClosed().subscribe(async (result) => {
+        if (result) {
+          try {
+            var response: any = await this.articleService.changeState(
+              id,
+              state
+            );
+            console.log(response);
+
+            if (response?.success) {
+              this.getArticles('listarNoticias', true);
+            }
+          } catch (error) {
+            alert('Algo salió mal');
           }
-        } catch (error) {
-          alert('Algo salió mal');
         }
-      }
-    });
+      });
+    }
+
+    // let dialogRef = this.dialog.open(ConfirmModalComponent, {
+    //   width: '250px',
+    //   height: 'auto',
+    // });
+    // dialogRef.afterClosed().subscribe(async (result) => {
+    //   if (result) {
+    //     try {
+    //       var response: any = await this.articleService.changeState(id, state);
+    //       console.log(response);
+
+    //       if (response?.success) {
+    //         this.getArticles('listarNoticias', true);
+    //       }
+    //     } catch (error) {
+    //       alert('Algo salió mal');
+    //     }
+    //   }
+    // });
   }
 }

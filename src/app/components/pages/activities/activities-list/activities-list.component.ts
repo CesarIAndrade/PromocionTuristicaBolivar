@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/components/confirm-modal/confirm-modal.component';
 import { imagesUrl } from 'src/environments/environment';
 import { AuthService } from 'src/app/services/auth.service';
+import { ActivityModalComponent } from '../activity-modal/activity-modal.component';
 
 @Component({
   selector: 'app-activities-list',
@@ -19,8 +20,8 @@ export class ActivitiesListComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {
-    if(localStorage.getItem('token')) {
+  ngOnInit(): void {    
+    if (localStorage.getItem('token')) {
       this.addActivityButton = true;
       this.editActivityButton = true;
     } else {
@@ -34,12 +35,13 @@ export class ActivitiesListComponent implements OnInit {
     this.authService.autenticated$.subscribe(() => {
       this.addActivityButton = false;
       this.editActivityButton = false;
-    })
+    });
   }
 
   activities: any[] = [];
   addActivityButton: boolean;
   editActivityButton: boolean;
+  activitiesToShow: number;
 
   async getActivities() {
     var response: any = await this.activitiesService.getActivities();
@@ -48,6 +50,9 @@ export class ActivitiesListComponent implements OnInit {
         item.Imagen = imagesUrl + item.Imagen;
       });
       this.activities = response.success;
+      if(this.router.url == "/home") {
+        this.activitiesToShow = 2;
+      }
     }
   }
 
@@ -77,4 +82,15 @@ export class ActivitiesListComponent implements OnInit {
       }
     });
   }
+
+  showActivity(activity) {
+    this.dialog.open(ActivityModalComponent, {
+      width: '700px',
+      height: 'auto',
+      data: {
+        activity
+      }
+    });
+  }
+
 }

@@ -85,7 +85,7 @@ export class PersonsService {
   }
 
   updatePerson(
-    personId: string,
+    id: string,
     identityNumber: string,
     firstName: string,
     secondName: string,
@@ -94,7 +94,7 @@ export class PersonsService {
     email: string
   ) {
     const body = new HttpParams()
-      .set('IdPersona', personId)
+      .set('IdPersona', id)
       .set('CedulaIdentidad', identityNumber)
       .set('PrimerNombre', firstName)
       .set('SegundoNombre', secondName)

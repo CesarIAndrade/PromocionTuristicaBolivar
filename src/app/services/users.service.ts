@@ -146,4 +146,22 @@ export class UsersService {
         );
     });
   }
+
+  getImages() {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get(apiUrl + 'listarImagenes', {
+          headers: new HttpHeaders()
+            .set('Authorization', 'Bearer ' + localStorage.getItem('token')),
+        })
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
 }

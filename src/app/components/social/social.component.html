@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <mat-list>
+            <div mat-subheader>Folders</div>
+            <mat-list-item *ngFor="let sn of socialNetworks">
+              <img mat-list-icon [src]="sn.icon"/>
+              <a [href]="sn.url" target="_blank" mat-line>{{ sn.name }}</a>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

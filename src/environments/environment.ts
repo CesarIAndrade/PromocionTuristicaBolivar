@@ -6,8 +6,8 @@ export const environment = {
   production: false
 };
 
-export const apiUrl = "http://26.135.12.17/ApiTurismo/public/api/";
-export const imagesUrl = "http://26.135.12.17/ApiTurismo/public/DiscoImagenes/";
+export const apiUrl = "http://26.155.20.209:8080/ApiTurismo/public/api/";
+export const imagesUrl = "http://26.155.20.209:8080/ApiTurismo/public/DiscoImagenes/";
 
 /*
  * For easier debugging in development mode, you can import the following file

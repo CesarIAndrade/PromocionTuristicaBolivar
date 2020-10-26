@@ -1,0 +1,22 @@
+<mat-card-content>
+  <mat-card-title class="text-center">
+    {{ activity.Actividad }}
+  </mat-card-title>
+  <div class="card-body">
+    <div class="d-flex">
+      <div class="activity-image">
+        <img mat-card-image [src]="activity.Imagen" alt="" />
+      </div>
+      <div class="activity-content">
+        <label> <b>Lugar: </b> {{ activity.Comunidad }} </label>
+        <br />
+        <label><b>Fecha:</b> {{ activity.DiaInicial }} </label>
+        <br />
+        <label> <b>Hora:</b> {{ activity.HoraInicio }} </label>
+        <p>
+          {{ activity.Descripcion }}
+        </p>
+      </div>
+    </div>
+  </div>
+</mat-card-content>

@@ -112,7 +112,6 @@ export class ResearchService {
       .set('EnlacePublicacion', researchLink)
       .set('FechaPublicacion', researchPubDate)
       .set('Autores', JSON.stringify(authors));
-    console.log(body);
     return new Promise((resolve, reject) => {
       this.http
         .post(apiUrl + 'actualizarPublicacion', body.toString(), {
