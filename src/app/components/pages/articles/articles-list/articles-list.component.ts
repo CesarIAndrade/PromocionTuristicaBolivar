@@ -40,15 +40,16 @@ export class ArticlesListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (localStorage.getItem('token')) {
-      this.getArticles('listarNoticias', true);
-      this.addArticle = true;
-      this.editArticleButton = true;
-    } else {
+    if (!localStorage.getItem('token') || this.router.url == "/home") {
       this.getArticles('pListarNoticias', false);
       this.addArticle = false;
       this.editArticleButton = false;
+    } else {
+      this.getArticles('listarNoticias', true);
+      this.addArticle = true;
+      this.editArticleButton = true;
     }
+
     this.articleService.refresh$.subscribe(() => {
       this.getArticles('listarNoticias', true);
     });
@@ -64,6 +65,8 @@ export class ArticlesListComponent implements OnInit {
       url,
       autenticated
     );
+    console.log(response);
+    
     if (response?.success) {
       var temp_articles: Article[] = [];
       response.success.map((article: Article) => {

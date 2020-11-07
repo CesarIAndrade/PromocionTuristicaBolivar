@@ -3,8 +3,9 @@
     <form class="form-group">
       <input
         class="form-control"
-        type="search"
         placeholder="Buscar..."
+        type="search"
+        (search)="searchResearch($event)"
         (keyup)="searchResearch($event)"
       />
     </form>

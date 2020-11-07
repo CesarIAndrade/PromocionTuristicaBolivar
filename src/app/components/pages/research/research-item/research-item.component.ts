@@ -16,13 +16,15 @@ export class ResearchItemComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.research.Autores.map((author) => {
       this.authors += `${author.PrimerNombre} ${author.PrimerApellido} ${author.SegundoApellido}, `;
     });
-    localStorage.getItem('token')
-      ? (this.editResearch = true)
-      : (this.editResearch = false);
+    if (!localStorage.getItem('token') || this.router.url == '/home') {
+      this.editResearch = false;
+    } else {
+      this.editResearch = true;
+    }
   }
 
   @Input() research: any;
@@ -53,6 +55,6 @@ export class ResearchItemComponent implements OnInit {
   }
 
   goToResearch(url) {
-    window.open(url, "_blank");
+    window.open(url, '_blank');
   }
 }

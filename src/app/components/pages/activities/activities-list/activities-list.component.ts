@@ -21,12 +21,12 @@ export class ActivitiesListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {    
-    if (localStorage.getItem('token')) {
-      this.addActivityButton = true;
-      this.editActivityButton = true;
-    } else {
+    if (!localStorage.getItem('token') || this.router.url == "/home") {
       this.addActivityButton = false;
       this.editActivityButton = false;
+    } else {
+      this.addActivityButton = true;
+      this.editActivityButton = true;
     }
     this.getActivities();
     this.activitiesService.refresh$.subscribe(() => {
@@ -45,15 +45,17 @@ export class ActivitiesListComponent implements OnInit {
 
   async getActivities() {
     var response: any = await this.activitiesService.getActivities();
-    if (response?.success) {
+    if (response?.success) {      
       response.success.map((item) => {
         item.Imagen = imagesUrl + item.Imagen;
       });
       this.activities = response.success;
+      this.activitiesToShow = this.activities.length;
       if(this.router.url == "/home") {
         this.activitiesToShow = 2;
       }
     }
+    console.log(this.activitiesToShow);
   }
 
   addActivity() {
