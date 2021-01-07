@@ -2,6 +2,5 @@ export const environment = {
   production: true
 };
 
-const ip = "26.233.202.189";
-export const apiUrl = `http://${ip}/ApiTurismo/public/api/`;
-export const imagesUrl = `http://${ip}/ApiTurismo/public/DiscoImagenes/`;
+export const apiUrl = `https://calm-waters-32459.herokuapp.com/api/`;
+export const imagesUrl = `https://calm-waters-32459.herokuapp.com//DiscoImagenes/`;
