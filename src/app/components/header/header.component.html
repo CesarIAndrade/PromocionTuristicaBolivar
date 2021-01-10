@@ -12,20 +12,23 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <div class="social-part">
-      <img
-        src="../../../assets/images/logo.png"
-        alt="img"
-        width="130px"
-        height="40px"
-      />
+      <a routerLink="/">
+        <img
+          src="../../../assets/images/logo.png"
+          alt="img"
+          width="130px"
+          height="40px"
+        />
+      </a>
     </div>
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-      <li class="nav-item mr-2" *ngFor="let navItem of navItems" >
+      <li class="nav-item mr-2" *ngFor="let navItem of navItems">
         <a
           class="nav-link"
           [routerLink]="navItem.url"
           routerLinkActive="active"
-          >{{ navItem.route }}</a>
+          >{{ navItem.route }}</a
+        >
       </li>
 
       <li class="nav-item mr-2">

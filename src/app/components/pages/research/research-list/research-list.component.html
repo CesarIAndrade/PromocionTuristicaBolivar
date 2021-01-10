@@ -14,7 +14,7 @@
     </button>
   </div>
 
-  <div class="col-lg-12" *ngFor="let research of researchList">
-    <app-research-item [research]="research"></app-research-item>
+  <div class="col-lg-12" *ngFor="let research of researchList; index as i">
+    <app-research-item *ngIf="i < researchToShow" [research]="research"></app-research-item>
   </div>
 </div>

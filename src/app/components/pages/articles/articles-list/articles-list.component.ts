@@ -65,8 +65,6 @@ export class ArticlesListComponent implements OnInit {
       url,
       autenticated
     );
-    console.log(response);
-    
     if (response?.success) {
       var temp_articles: Article[] = [];
       response.success.map((article: Article) => {
@@ -126,8 +124,6 @@ export class ArticlesListComponent implements OnInit {
               id,
               state
             );
-            console.log(response);
-
             if (response?.success) {
               this.getArticles('listarNoticias', true);
             }
@@ -137,24 +133,5 @@ export class ArticlesListComponent implements OnInit {
         }
       });
     }
-
-    // let dialogRef = this.dialog.open(ConfirmModalComponent, {
-    //   width: '250px',
-    //   height: 'auto',
-    // });
-    // dialogRef.afterClosed().subscribe(async (result) => {
-    //   if (result) {
-    //     try {
-    //       var response: any = await this.articleService.changeState(id, state);
-    //       console.log(response);
-
-    //       if (response?.success) {
-    //         this.getArticles('listarNoticias', true);
-    //       }
-    //     } catch (error) {
-    //       alert('Algo salió mal');
-    //     }
-    //   }
-    // });
   }
 }

@@ -37,12 +37,17 @@ export class ResearchListComponent implements OnInit {
   researchListBefore: any[] = [];
   searchBarClass: string;
   addResearch: boolean;
+  researchToShow: number;
 
   async getResearchList() {
     var response: any = await this.researchService.getResearchList();
     if (response?.success) {
       this.researchList = response.success;
       this.researchListBefore = this.researchList;
+      this.researchToShow = this.researchListBefore.length;
+      if(this.router.url == "/home") {
+        this.researchToShow = 2;
+      }
     }
   }
 

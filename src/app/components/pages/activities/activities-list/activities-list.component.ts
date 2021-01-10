@@ -55,7 +55,6 @@ export class ActivitiesListComponent implements OnInit {
         this.activitiesToShow = 2;
       }
     }
-    console.log(this.activitiesToShow);
   }
 
   addActivity() {

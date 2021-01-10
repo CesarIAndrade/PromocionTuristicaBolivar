@@ -19,7 +19,7 @@ export class ResearchFormComponent implements OnInit {
     private researchService: ResearchService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private location: Location,
+    private location: Location
   ) {
     this.researchForm = new FormGroup({
       researchId: new FormControl(''),
@@ -37,7 +37,7 @@ export class ResearchFormComponent implements OnInit {
           this.submitButton = 'edit';
         }
       }
-    });    
+    });
   }
 
   researchForm: FormGroup;
@@ -69,18 +69,22 @@ export class ResearchFormComponent implements OnInit {
   async addResearch() {
     if (this.researchForm.valid) {
       try {
-        var researchPubDate = this.researchForm
-          .get('researchPubDate')
-          .value.toJSON()
-          .split('T')[0];
-        var response: any = await this.researchService.addResearch(
-          this.researchForm.get('researchTitle').value,
-          this.researchForm.get('researchLink').value,
-          researchPubDate,
-          this.authors
-        );
-        if (response?.success) {
-          this.router.navigateByUrl('/research-list');
+        if (this.authors.length == 0) {
+          alert('Te faltan los autores');
+        } else {
+          var researchPubDate = this.researchForm
+            .get('researchPubDate')
+            .value.toJSON()
+            .split('T')[0];
+          var response: any = await this.researchService.addResearch(
+            this.researchForm.get('researchTitle').value,
+            this.researchForm.get('researchLink').value,
+            researchPubDate,
+            this.authors
+          );
+          if (response?.success) {
+            this.router.navigateByUrl('/research-list');
+          }
         }
       } catch (error) {
         alert('Te faltan los autores');
@@ -105,8 +109,8 @@ export class ResearchFormComponent implements OnInit {
         researchPubDate: FechaPublicacion,
       });
       Autores.map((author) => {
-        this.authors.push(author.IdPersona)
-      })      
+        this.authors.push(author.IdPersona);
+      });
     }
   }
 
