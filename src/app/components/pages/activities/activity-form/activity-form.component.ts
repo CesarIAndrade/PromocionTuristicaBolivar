@@ -68,24 +68,30 @@ export class ActivityFormComponent implements OnInit {
     }
   }
 
-  async createActivity() {    
+  async createActivity() {
     if (this.activityForm.valid) {
       if (this.image) {
-        var startDay = this.activityForm.get('startDay').value;
-        var endDay = this.activityForm.get('endDay').value;
-        var response: any = await this.activitiesService.createActivity(
-          this.activityForm.get('activity').value,
-          this.activityForm.get('comunity').value,
-          this.activityForm.get('description').value,
-          startDay.split('T')[0],
-          endDay.split('T')[0],
-          startDay.split('T')[1],
-          endDay.split('T')[1],
-          this.image
-        );
-        if (response?.success) {
-          this.activityForm.reset();
-          this.router.navigateByUrl('/activities-list');
+        var startDay = new Date(this.activityForm.get('startDay').value);
+        var endDay = new Date(this.activityForm.get('endDay').value);
+        if (startDay < endDay) {
+          var response: any = await this.activitiesService.createActivity(
+            this.activityForm.get('activity').value,
+            this.activityForm.get('comunity').value,
+            this.activityForm.get('description').value,
+            this.activityForm.get('startDay').value.split('T')[0],
+            this.activityForm.get('endDay').value.split('T')[0],
+            this.activityForm.get('startDay').value.split('T')[1],
+            this.activityForm.get('endDay').value.split('T')[1],
+            this.image
+          );
+          if (response?.success) {
+            this.activityForm.reset();
+            this.router.navigateByUrl('/activities-list');
+          }
+        } else {
+          alert(
+            'La fecha de inicio no puede ser mayor a la fecha de fin del evento'
+          );
         }
       } else {
         alert('Necesitas una imagen');
@@ -109,7 +115,7 @@ export class ActivityFormComponent implements OnInit {
         HoraFin,
         HoraInicio,
         IdRelacionesActividad,
-        Imagen
+        Imagen,
       } = response.success[0];
       this.activityForm.setValue({
         activityId: IdRelacionesActividad,
@@ -117,7 +123,7 @@ export class ActivityFormComponent implements OnInit {
         description: Descripcion,
         comunity: Comunidad,
         startDay: DiaInicial + 'T' + HoraInicio,
-        endDay: DiaFinal + 'T' + HoraFin
+        endDay: DiaFinal + 'T' + HoraFin,
       });
       this.imageSelected = imagesUrl + Imagen;
       this.submitButton = 'edit';

@@ -68,6 +68,7 @@ export class UsersService {
       .set('PrimerApellido', firstLastname)
       .set('SegundoApellido', secondLastname)
       .set('Correo', email);
+    console.log(body);
     return new Promise((resolve, reject) => {
       this.http
         .post(apiUrl + 'registroUsuario', body.toString(), {

@@ -58,6 +58,7 @@
         (change)="uploadPhoto($event)"
         #image
         (change)="uploadPhoto($event)"
+        accept="image/x-png,image/gif,image/jpeg"
       />
       <img 
         [src]="imageSelected || '../../../../assets/images/no_image.jpg'"
