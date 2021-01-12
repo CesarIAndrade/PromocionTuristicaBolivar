@@ -10,9 +10,9 @@ export const environment = {
 // export const apiUrl = `http://${ip}/ApiTurismo/public/api/`;
 // export const imagesUrl = `http://${ip}/ApiTurismo/public/DiscoImagenes/`;
 
-// const url = "https://calm-waters-32459.herokuapp.com/"
+const url = "https://calm-waters-32459.herokuapp.com/"
 // const url = "http://apiturismo.tonohost.com/laravelApi/public/"
-const url = "http://apiturismo.tonohost.com/ApiTurismo/public/"
+// const url = "http://apiturismo.tonohost.com/ApiTurismo/public/"
 export const apiUrl = `${url}api/`;
 export const imagesUrl = `${url}DiscoImagenes/`;
 

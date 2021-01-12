@@ -131,9 +131,10 @@ export class ActivitiesService {
     return new Promise((resolve, reject) => {
       this.http
         .post(apiUrl + 'actualizarActividad', fd, {
-          headers: new HttpHeaders()
-            .set('Content-Type', 'application/x-www-form-urlencoded')
-            .set('Authorization', 'Bearer ' + localStorage.getItem('token')),
+          headers: new HttpHeaders().set(
+            'Authorization',
+            'Bearer ' + localStorage.getItem('token')
+          ),
         })
         .subscribe(
           (res) => {

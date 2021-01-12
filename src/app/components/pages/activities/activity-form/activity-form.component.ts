@@ -133,24 +133,34 @@ export class ActivityFormComponent implements OnInit {
 
   async editActivity() {
     if (this.activityForm.valid) {
-      var startDay = this.activityForm.get('startDay').value;
-      var endDay = this.activityForm.get('endDay').value;
-      var response: any = await this.activitiesService.editActivity(
-        this.activityForm.get('activityId').value,
-        this.activityForm.get('activity').value,
-        this.activityForm.get('comunity').value,
-        this.activityForm.get('description').value,
-        startDay.split('T')[0],
-        endDay.split('T')[0],
-        startDay.split('T')[1],
-        endDay.split('T')[1],
-        this.image
-      );
-      if (response?.success) {
-        this.activitiesService.refresh$.emit();
-        this.router.navigate(['/activities-list']);
-        this.submitButton = null;
-        this.action = 'Guardar';
+      if (this.image || this.imageSelected) {
+        var startDay = new Date(this.activityForm.get('startDay').value);
+        var endDay = new Date(this.activityForm.get('endDay').value);
+        if (startDay < endDay) {
+          var response: any = await this.activitiesService.editActivity(
+            this.activityForm.get('activityId').value,
+            this.activityForm.get('activity').value,
+            this.activityForm.get('comunity').value,
+            this.activityForm.get('description').value,
+            this.activityForm.get('startDay').value.split('T')[0],
+            this.activityForm.get('endDay').value.split('T')[0],
+            this.activityForm.get('startDay').value.split('T')[1],
+            this.activityForm.get('endDay').value.split('T')[1],
+            this.image
+          );
+          if (response?.success) {
+            this.activityForm.reset();
+            this.router.navigateByUrl('/activities-list');
+            this.submitButton = null;
+            this.action = 'Guardar';
+          }
+        } else {
+          alert(
+            'La fecha de inicio no puede ser mayor a la fecha de fin del evento'
+          );
+        }
+      } else {
+        alert('Necesitas una imagen');
       }
     }
   }

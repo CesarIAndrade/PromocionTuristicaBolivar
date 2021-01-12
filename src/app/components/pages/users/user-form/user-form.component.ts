@@ -31,7 +31,13 @@ export class UserFormComponent implements OnInit {
       ]),
       names: new FormControl('', Validators.required),
       lastnames: new FormControl('', Validators.required),
-      mail: new FormControl('', Validators.required),
+      mail: new FormControl('', [
+        Validators.required,
+        Validators.email,
+        Validators.pattern(
+          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        ),
+      ]),
     });
   }
 
@@ -104,7 +110,9 @@ export class UserFormComponent implements OnInit {
             this.userForm.reset();
             this.getUsers();
           }
-        } catch (error) {}
+        } catch (error) {
+          alert('');
+        }
       }
     }
   }
